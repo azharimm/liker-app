@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <example-component></example-component>
+            <app-timeline />
         </div>
     </div>
 </div>
