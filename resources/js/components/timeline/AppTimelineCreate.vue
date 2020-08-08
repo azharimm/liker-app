@@ -1,13 +1,31 @@
 <template>
-    <form action="">
+    <form @submit.prevent="submit">
         <div class="form-group">
             <label for="body" class="sr-only">Share something</label>
             <textarea
                 class="form-control"
                 placeholder="Share something"
-                rows="3">
+                rows="3"
+                v-model="form.body">
             </textarea>
         </div>
         <button type="submit" class="btn btn-primary btn-block">Post It</button>
     </form>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            form: {
+                body: ''
+            }
+        }
+    },
+    methods: {
+        submit() {
+            console.log('submitting...');
+        }
+    }
+}
+</script>
