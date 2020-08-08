@@ -16,6 +16,19 @@ class PostController extends Controller
             ->collection($posts)
             ->transformWith(new PostTransformer)
             ->toArray();
+    }
 
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'body' => 'required'
+        ]);
+        
+        $post = $request->user()->posts()->create($request->only('body'));
+
+        return fractal()
+            ->item($post)
+            ->transformWith(new PostTransformer)
+            ->toArray();
     }
 }

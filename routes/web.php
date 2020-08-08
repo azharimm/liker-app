@@ -10,6 +10,6 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'api'], function() {
+Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
     Route::resource('posts', 'PostController');
 });
