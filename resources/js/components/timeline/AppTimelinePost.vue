@@ -1,17 +1,28 @@
 <template>
     <div class="timeline__post media">
-        <img src="" class="timeline__avatar mr-3 rounded">
+        <img :src="post.author.data.avatar" class="timeline__avatar mr-3 rounded">
         <div class="media-body">
             <div class="font-weight-bold">
-                Azhari
+                {{ post.author.data.name }}
             </div>
             <p>
-                post body
+                {{ post.body }}
             </p>
             <app-timeline-post-like />
         </div>
     </div>
 </template>
+
+<script>
+export default {
+    props: {
+        post: {
+            required: true,
+            type: Object
+        }
+    }
+}
+</script>
 
 <style scoped>
     .timeline__post {
