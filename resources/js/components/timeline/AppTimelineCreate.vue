@@ -14,6 +14,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
     data() {
         return {
@@ -23,8 +24,12 @@ export default {
         }
     },
     methods: {
-        submit() {
-            console.log('submitting...');
+        ...mapActions({
+           createPosts: 'createPosts'
+        }),
+        async submit() {
+            await this.createPosts(this.form);
+            this.form.body = '';
         }
     }
 }
