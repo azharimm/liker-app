@@ -29,6 +29,10 @@ export default new Vuex.Store({
         async likePost({commit}, id) {
             let posts = await axios.post(`api/posts/${id}/likes`);
             commit('UPDATE_POST', posts.data.data)
+        },
+        async refreshPost({commit}, id) {
+            let post = await axios.get('api/posts/'+id);
+            commit('UPDATE_POST', post.data.data)
         }
     },
     mutations: {

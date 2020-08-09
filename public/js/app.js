@@ -59780,6 +59780,8 @@ __webpack_require__.r(__webpack_exports__);
 
 Echo.channel('posts').listen('PostCreated', function (e) {
   _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('getPost', e.post.id);
+}).listen('PostLiked', function (e) {
+  _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('refreshPost', e.post.id);
 });
 
 /***/ }),
@@ -59922,6 +59924,29 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
             }
           }
         }, _callee4);
+      }))();
+    },
+    refreshPost: function refreshPost(_ref5, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        var commit, post;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                commit = _ref5.commit;
+                _context5.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/posts/' + id);
+
+              case 3:
+                post = _context5.sent;
+                commit('UPDATE_POST', post.data.data);
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
       }))();
     }
   },
