@@ -1,7 +1,7 @@
 <template>
     <div>
         <span class="text-secondary">
-            1 like from 1 people
+            {{ pluralize('like', post.likes, true) }}  from {{ pluralize('person', post.likers.data.length, true)}}
             (including you)
         </span>
 
@@ -12,3 +12,18 @@
         </ul>
     </div>
 </template>
+
+<script>
+import pluralize from 'pluralize'
+export default {
+    props: {
+        post: {
+            required: true,
+            type: Object
+        }
+    },
+    methods: {
+        pluralize
+    }
+}
+</script>

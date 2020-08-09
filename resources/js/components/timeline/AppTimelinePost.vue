@@ -8,7 +8,7 @@
             <p>
                 {{ post.body }}
             </p>
-            <app-timeline-post-like />
+            <app-timeline-post-like :post="post" />
         </div>
     </div>
 </template>
