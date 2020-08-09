@@ -14,7 +14,8 @@ class PostUserTransformer extends TransformerAbstract
      */
     protected $defaultIncludes = [
         'owner',
-        'liked'
+        'liked',
+        'likes_remaining'
     ];
     
     /**
@@ -51,6 +52,17 @@ class PostUserTransformer extends TransformerAbstract
             }
 
             return $post->likers->contains($user);
+        });
+    }
+
+    public function includeLikesRemaining(Post $post)
+    {
+        return $this->primitive($post, function() use ($post) {
+            if(!$user = auth()->user()) {
+                return false;
+            }
+
+            return $post->likesRemaining($user);
         });
     }
 }
