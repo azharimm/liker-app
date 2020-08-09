@@ -1,4 +1,5 @@
 require('./bootstrap');
+require('./echo')
 
 import store from './store'
 

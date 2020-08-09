@@ -59388,6 +59388,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./echo */ "./resources/js/echo.js");
+
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 Vue.component('app-timeline', __webpack_require__(/*! ./components/timeline/AppTimeline.vue */ "./resources/js/components/timeline/AppTimeline.vue")["default"]);
@@ -59443,15 +59445,13 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "abc",
-  cluster: "mt1",
+  key: "local",
+  cluster: "ap1",
   forceTLS: false,
   wsHost: '127.0.0.1',
   wsPort: 6001,
   disableStats: true
 });
-
-__webpack_require__(/*! ./echo */ "./resources/js/echo.js");
 
 /***/ }),
 
@@ -59771,11 +59771,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!******************************!*\
   !*** ./resources/js/echo.js ***!
   \******************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./resources/js/store.js");
 
 Echo.channel('posts').listen('PostCreated', function (e) {
-  console.log(e);
+  _store__WEBPACK_IMPORTED_MODULE_0__["default"].dispatch('getPost', e.post.id);
 });
 
 /***/ }),
@@ -59851,20 +59855,20 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
         }, _callee);
       }))();
     },
-    createPosts: function createPosts(_ref2, data) {
+    getPost: function getPost(_ref2, id) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
-        var commit, posts;
+        var commit, post;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
                 commit = _ref2.commit;
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/posts', data);
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('api/posts/' + id);
 
               case 3:
-                posts = _context2.sent;
-                commit('PREPEND_POST', posts.data.data);
+                post = _context2.sent;
+                commit('PREPEND_POST', post.data.data);
 
               case 5:
               case "end":
@@ -59874,7 +59878,7 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
         }, _callee2);
       }))();
     },
-    likePost: function likePost(_ref3, id) {
+    createPosts: function createPosts(_ref3, data) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         var commit, posts;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
@@ -59883,11 +59887,11 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
               case 0:
                 commit = _ref3.commit;
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("api/posts/".concat(id, "/likes"));
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('api/posts', data);
 
               case 3:
                 posts = _context3.sent;
-                commit('UPDATE_POST', posts.data.data);
+                commit('PREPEND_POST', posts.data.data);
 
               case 5:
               case "end":
@@ -59895,6 +59899,29 @@ vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_2__
             }
           }
         }, _callee3);
+      }))();
+    },
+    likePost: function likePost(_ref4, id) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        var commit, posts;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                commit = _ref4.commit;
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("api/posts/".concat(id, "/likes"));
+
+              case 3:
+                posts = _context4.sent;
+                commit('UPDATE_POST', posts.data.data);
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
       }))();
     }
   },
