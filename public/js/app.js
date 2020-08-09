@@ -2112,6 +2112,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Object
     }
   },
+  computed: {
+    canLike: function canLike() {
+      if (this.post.user.data.owner) {
+        return false;
+      }
+
+      if (this.post.user.data.likes_remaining <= 0) {
+        return false;
+      }
+
+      return true;
+    }
+  },
   methods: _objectSpread(_objectSpread({
     pluralize: pluralize__WEBPACK_IMPORTED_MODULE_0___default.a
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
@@ -39845,7 +39858,7 @@ var render = function() {
     ),
     _vm._v(" "),
     _c("ul", { staticClass: "list-inline mb-0" }, [
-      !_vm.post.user.data.owner
+      _vm.canLike
         ? _c("li", { staticClass: "list-inline-item" }, [
             _c(
               "a",

@@ -32,6 +32,11 @@ class Post extends Model
 
     public function likesRemaining(User $user)
     {
-        return Post::MAX_LIKES - $this->likes->where('user_id', $user->id)->count();
+        return self::MAX_LIKES - $this->likes->where('user_id', $user->id)->count();
+    }
+
+    public function maxLikesReachedFor(User $user)
+    {
+        return $this->likesRemaining($user) <= 0;
     }
 }

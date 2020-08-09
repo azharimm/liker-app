@@ -11,6 +11,10 @@ class PostLikeController extends Controller
     public function store(Post $post, Request $request)
     {
         $this->authorize('like', $post);
+
+        if($post->maxLikesReachedFor($request->user())) {
+            return response(null, 429);
+        }
         
         $post->likes()->create([
             'user_id' => $request->user()->id
