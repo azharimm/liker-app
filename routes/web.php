@@ -12,4 +12,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'api', 'middleware' => 'auth'], function() {
     Route::resource('posts', 'PostController');
+    Route::resource('posts/{post}/likes', 'PostLikeController');
 });
